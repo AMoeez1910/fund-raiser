@@ -6,9 +6,11 @@ export function UserContextProvider({children}){
     // if user or not
     useEffect(()=>{
     if(!user){
-    axios.get('/profile').then(({data}) => {
-        setUser(data)
-    })
+        axios.get('https://fund-raiser-production.up.railway.app/profile')
+        .then(res => {
+          if(res.data)
+            setUser(res.data)
+          })
 }
     },[user])
     return (
