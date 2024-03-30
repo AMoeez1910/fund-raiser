@@ -102,7 +102,6 @@ const registerUser = async (req,res) => {
     else{
         const hashedPassword=await hashPassword(password)
         email_existence.check(email, function(error, response){
-            console.log(response)
             if(!response){
             return res.json({
                 error:'Email Doesnt Exist'
@@ -112,8 +111,7 @@ const registerUser = async (req,res) => {
         connection.query('INSERT INTO user SET ?;', {FullName:name, EmailAddress:email, Password:hashedPassword,verified:0},(error,re)=>{
             if(error) throw error;
             connection.query('SELECT id FROM user WHERE EmailAddress =?',[email],async(errors,resu)=>{
-            if(errors) throw errors;       
-            console.log(resu[0]) 
+            if(errors) throw errors;     
             sendVerifyEmail(name,email,resu[0].id)
             })
             return res.json({succes:'User has been registered,Please Verify Email to Log in'})
@@ -146,13 +144,11 @@ const loginUser = async (req,res)=>{
     //const user = await User.findOne({email});
     connection.query('SELECT * FROM user WHERE EmailAddress =?',[email],async (err,result)=>{
         if (err) throw err 
-        console.log(result)
         if((!result.length || !await bcrypt.compare(password,result[0].Password)) || !result[0].verified) 
         return res.json({error:'Incorrect Email or Password'})
         else {
             const fullName = result[0].FullName;
             const user_id = result[0].id
-            console.log(user_id)
             // Split the full name based on spaces
             const fullNameArray = fullName.split(' ');
 
@@ -161,10 +157,13 @@ const loginUser = async (req,res)=>{
                 //cookie token
             const token = jwt.sign({users: { FullName: firstName, id: user_id,EmailAddress:email }},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES})
             const cookiesOptions = {
-                expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES *24*60*60*1000),
-                httpOnly:true
-            }
-            res.cookie('token', token)
+                expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+                sameSite: 'None',  // Set SameSite attribute to 'None' for cross-origin requests
+                secure: true,      // Set secure to true when served over HTTPS
+            };
+            
+            res.cookie('token', token, cookiesOptions);
             res.json({ success: 'Successfully Login' });
         }
     })
@@ -197,7 +196,6 @@ const getProfile = (req,res,next)=>{
                 req.name=user.users.FullName
                 req.id=user.users.id
                 req.email=user.users.EmailAddress
-                console.log(req.name)
                 next()
             }
         })
@@ -223,7 +221,7 @@ const PasswordReset = (req, res) => {
     }})
 }
 const emailNewPass = async (id,token,email) =>{
-    url = `http://localhost:5173/ForgotPassword/${id}/${token}`
+    url = `/ForgotPassword/${id}/${token}`
             try {
                 const transporter = nodemailer.createTransport({
                     host: 'smtp.gmail.com',

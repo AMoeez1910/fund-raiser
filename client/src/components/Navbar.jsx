@@ -1,37 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import logo from '../assets/logo.png';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Links from "./Links";
+import { UserContext } from "../../context/userContext";
 
 export default function Navbar({links,getLoggedIn  }) {
   const navigate = useNavigate();
+  const {user} = useContext(UserContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name,setName] = useState('')
-  const [id,setID] = useState()
+  const [name,setName] = useState(user.name)
   //logic for sign in
   axios.defaults.withCredentials=true
   console.log(isLoggedIn)
-  useEffect(() => {
-    axios.get('https://fund-raiser-production.up.railway.app/profile')
-    .then(res => {
-      
-      if(res.data)
-    {if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-        setName(res.data.name)
-        setID(res.data.id)
-        getLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }}
-    })
-  }, [isLoggedIn]);
-
-  
   const logout = () => {
     axios.get('https://fund-raiser-production.up.railway.app/logout').then(res=>{
     if(res.data)
