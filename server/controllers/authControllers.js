@@ -102,7 +102,6 @@ const registerUser = async (req,res) => {
     else{
         const hashedPassword=await hashPassword(password)
         email_existence.check(email, function(error, response){
-            console.log(response)
             if(!response){
             return res.json({
                 error:'Email Doesnt Exist'
@@ -113,7 +112,6 @@ const registerUser = async (req,res) => {
             if(error) throw error;
             connection.query('SELECT id FROM user WHERE EmailAddress =?',[email],async(errors,resu)=>{
             if(errors) throw errors;       
-            console.log(resu[0]) 
             sendVerifyEmail(name,email,resu[0].id)
             })
             return res.json({succes:'User has been registered,Please Verify Email to Log in'})
@@ -146,13 +144,11 @@ const loginUser = async (req,res)=>{
     //const user = await User.findOne({email});
     connection.query('SELECT * FROM user WHERE EmailAddress =?',[email],async (err,result)=>{
         if (err) throw err 
-        console.log(result)
         if((!result.length || !await bcrypt.compare(password,result[0].Password)) || !result[0].verified) 
         return res.json({error:'Incorrect Email or Password'})
         else {
             const fullName = result[0].FullName;
             const user_id = result[0].id
-            console.log(user_id)
             // Split the full name based on spaces
             const fullNameArray = fullName.split(' ');
 
@@ -179,7 +175,6 @@ const loginUser = async (req,res)=>{
 //    res.json({error:'Not match'})
 //    }
  } catch (error) {
-    console.log(error)
  }
 }
 //
@@ -289,7 +284,6 @@ const createCampaign = async (req, res) => {
     console.log('Received data:', req.body);
     const receivedData = req.body;
     // Process the received data as needed
-    console.log(receivedData.id);
     res.json({ message: 'Data received successfully' });
     connection.query('INSERT INTO fundraise SET ?;', { title: receivedData.title, description: receivedData.description,goalAmount: receivedData.goal, imgUrl: receivedData.imgUrl, type: receivedData.type, createdBy:receivedData.id},(error,re)=>{
 
@@ -303,7 +297,6 @@ const createCampaign = async (req, res) => {
 const fetchFundraise = async (req, res) => { 
 
     const { isActive } = req.params;
-    console.log(isActive)
     const sqlQuery = 'SELECT * FROM fundraise WHERE active = ?;';
     connection.query(sqlQuery, [isActive=="true"? 1:0 ], (err, result) => {
         if (err) {
@@ -385,7 +378,6 @@ const createDrive = async (req, res) => {
     console.log('Received data:', req.body);
     const receivedData = req.body;
     // Process the received data as needed
-    console.log(receivedData);
     res.json({ message: 'Data received successfully' });
     connection.query('INSERT INTO drive SET ?;', { title: receivedData.title, description: receivedData.description, location: receivedData.location,  imgUrl: receivedData.imgUrl, endDate: receivedData.endDate,createdBy:receivedData.id, type: receivedData.type},(error,re)=>{
         if(error) throw error;
@@ -395,7 +387,6 @@ const createDrive = async (req, res) => {
 
 const fetchDrive = async (req, res) => {
     const { isActive } = req.params;
-    console.log(isActive)
     const sqlQuery = 'SELECT * FROM drive WHERE active = ?;';
     connection.query(sqlQuery, [isActive == "true" ? 1 : 0], (err, result) => {
         if (err) {
@@ -432,14 +423,12 @@ const filterdriveCards = (req,res) =>{
 }
 const PaymentDetails = async (req,res) => {
     const {id} = req.params;
-    console.log(id)
     const sqlQuery = `select title, fundraiseId, amount, paymentDate from payment natural join fundraise where id = ?`;
     connection.query(sqlQuery, [id], (err, result) => {
         if (err) {
             console.error('Error fetching payment details:', err);
             res.status(500).json({ message: 'Internal Server Error' });
         } else {
-            console.log(result)
             res.status(200).json({ message: 'Success', data: result });
         }
     })
