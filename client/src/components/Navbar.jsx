@@ -15,6 +15,7 @@ export default function Navbar({links,getLoggedIn  }) {
   //logic for sign in
   axios.defaults.withCredentials=true
   console.log(isLoggedIn)
+ 
   const logout = () => {
     axios.get('https://fund-raiser-production.up.railway.app/logout').then(res=>{
     if(res.data)
