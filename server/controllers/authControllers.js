@@ -164,7 +164,7 @@ const loginUser = async (req,res)=>{
             };
             
             res.cookie('token', token, cookiesOptions);
-            res.json({ success: 'Successfully Login',token:token });
+            res.json({ success: 'Successfully Login',name: firstName, email, id: user_id });
         }
     })
 //    if (match){
