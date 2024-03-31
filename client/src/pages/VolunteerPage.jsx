@@ -19,18 +19,14 @@ const VolunteerPage = () => {
     const [iscount, setCount] = useState(0);
     //logic for sign in
     axios.defaults.withCredentials = true;
-    console.log(isLoggedIn);
 
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.get("drive/did/" + did);
-
-          console.log(response);
           setVolunteerInfo(response.data.info[0]);
           setCount(response.data.number[0].count);
           setActive(response.data.info[0].active);
-          console.log(response.data.number[0].count + "is goooood");
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -56,20 +52,13 @@ const VolunteerPage = () => {
         }
     }
     useEffect(() => {
-      axios.get(`https://fund-raiser-production.up.railway.app/profile`)
-      .then(res => {
-        
-        if(res.data)
-      {if(res.data.Status === "Success"){
-          setIsLoggedIn(true)
-          setID(res.data.id)
-          getLoggedIn(true)
-        }
-        else{
-          setIsLoggedIn(false)
-        }}
-      })
-    }, [isLoggedIn]);
+      const userData = localStorage.getItem("userData");
+      if (userData) {
+        const parsedUserData = JSON.parse(userData);
+        setIsLoggedIn(true);
+        setID(parsedUserData.id)
+      }
+    }, [setIsLoggedIn]);
   
         return (
           <>
