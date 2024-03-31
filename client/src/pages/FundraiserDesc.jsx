@@ -14,22 +14,30 @@ const FundRaiseTitle = ({ onNext, onPrev, submitData }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   axios.defaults.withCredentials=true
   useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      setIsLoggedIn(true)
+      setID(parsedUserData.id)
+    }
+  }, [setIsLoggedIn]);
+  // useEffect(() => {
+  //   axios.get(`https://fund-raiser-production.up.railway.app/profile`)
 
-    .then(res => {
+  //   .then(res => {
       
-      if(res.data)
-    { 
-      if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-        setID(res.data.id)
-        getLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }}
-    })
-  }, [isLoggedIn]);
+  //     if(res.data)
+  //   { 
+  //     if(res.data.Status === "Success"){
+  //       setIsLoggedIn(true)
+  //       setID(res.data.id)
+  //       getLoggedIn(true)
+  //     }
+  //     else{
+  //       setIsLoggedIn(false)
+  //     }}
+  //   })
+  // }, [isLoggedIn]);
   const handleSubmit = async (e) => {
     e.id = id
     await axios
