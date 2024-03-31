@@ -9,7 +9,7 @@ import StartFundraiser from './StartFundraiser';
 import ActiveDrive from './ActiveDrive';
 import Footer from './Footer';
 import { useEffect,useState } from 'react';
-
+import axios from 'axios';
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
