@@ -13,6 +13,19 @@ import { useEffect,useState } from 'react';
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
+    const updateFundraiseStatus = async () => {
+      try {
+        
+         await axios.patch('/');
+  
+      } catch (error) {
+        console.error('Error updating fundraise status:', error);
+      }
+    };
+    updateFundraiseStatus();
+  }, []);
+  
+  useEffect(() => {
     const userData = localStorage.getItem("userData");
     if (userData) {
       setIsLoggedIn(true);
