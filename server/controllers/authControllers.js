@@ -187,9 +187,9 @@ const logsout= (req,res) => {
 }
 const getProfile = (req,res,next)=>{
     const token =req.cookies.token
-    console.log(req.cookies)
-    console.log(req.cookies.token)
     if (req.cookies) {
+        if(req.cookies.token)
+        {
         jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
             if(err){
                 return res.json({Message:"Authentication Error"})
@@ -201,6 +201,10 @@ const getProfile = (req,res,next)=>{
             }
         })
     } 
+        else{
+       return res.json(null)
+    }
+    }
     else{
        return res.json(null)
     }
