@@ -11,18 +11,18 @@ export default function Navbar({links,getLoggedIn  }) {
   const navigate = useNavigate();
   const {user} = useContext(UserContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name,setName] = useState(user?.name)
+  const [name,setName] = useState("")
   //logic for sign in
   axios.defaults.withCredentials=true
   console.log(isLoggedIn)
   useEffect(() => {
     axios.get(`https://fund-raiser-production.up.railway.app/profile`)
     .then(res => {
-      console.log(res.data)
       if(res.data)
         console.log(res.data)
     {if(res.data.Status === "Success"){
         setName(res.data.name)
+        setIsLoggedIn(true)
       }
       else{
         setIsLoggedIn(false)
