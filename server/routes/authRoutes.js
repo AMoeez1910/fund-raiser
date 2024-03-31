@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const cors = require('cors')
 const connection = require('../models/db')
-const {test,loginUser,getProfile,registerUser,verifyMail, createCampaign,PasswordReset,NewPassword, stripeIntegration,logsout,fetchFundraise,donatePage,filterCards,createDrive,fetchDrive, drivePage, enrollVolunteer,filterdriveCards,getDetails} = require('../controllers/authControllers')
+const {test,loginUser,getProfile,registerUser,verifyMail, createCampaign,PasswordReset,NewPassword, stripeIntegration,logsout,fetchFundraise,donatePage,filterCards,updateFundraiseStatus,createDrive,fetchDrive, drivePage, enrollVolunteer,filterdriveCards,getDetails} = require('../controllers/authControllers')
 
 const {hashPassword,comparePassword} = require('../helpers/auth')
 const jwt = require('jsonwebtoken')
