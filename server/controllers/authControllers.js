@@ -358,8 +358,8 @@ const stripeIntegration = async (req, res) => {
     ],
     customer : customer.id,
     mode: 'payment',
-    success_url: 'http://localhost:5173/checkout-success',
-    cancel_url: 'http://localhost:5173/donate',
+    success_url: 'https://faryaad.netlify.app/checkout-success',
+    cancel_url: 'https://faryaad.netlify.app/donate',
   });
 
   res.send({url:session.url});
