@@ -21,6 +21,7 @@ export default function Navbar({links,getLoggedIn  }) {
       setUser(parsedUserData);
     }
   }, [setUser]);
+  
   const logout = () => {
     axios.get('https://fund-raiser-production.up.railway.app/logout').then(res=>{
     if(res.data)

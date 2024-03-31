@@ -15,7 +15,7 @@ const stripe = Stripe('sk_test_51OT909JvFBCqm5cO3mOWVLKvR5cdT6eDnK05rYu0tGuuwfNa
 router.use(
     cors({
         credentials:true,
-        origin:'http://localhost:5173'
+        origin:'https://faryaad.netlify.app'
     })
 )
 // route to actual route we want 

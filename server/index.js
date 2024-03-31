@@ -26,4 +26,3 @@ connection.connect(function(err){
     if(err) throw err;
     console.log('Database Connected')
 })})
-//https://faryaad.netlify.app
