@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser')
 const connection = require("./models/db")
 const stripe = require ("./routes/stripe")
 const corsOptions ={
-    origin:'https://localhost:5173', 
+    origin:'http://localhost:5173', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
