@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import logo from '../assets/logo.png';
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Links from "./Links";
@@ -9,31 +9,24 @@ import { UserContext } from "../../context/userContext";
 
 export default function Navbar({links,getLoggedIn  }) {
   const navigate = useNavigate();
-  const {user} = useContext(UserContext)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user,setUser] = useState(false)
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name,setName] = useState("")
   //logic for sign in
-  axios.defaults.withCredentials=true
-  console.log(isLoggedIn)
+ 
   useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
-    .then(res => {
-      if(res.data)
-        console.log(res.data)
-    {if(res.data.Status === "Success"){
-        setName(res.data.name)
-        setIsLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }}
-    })
-  }, [isLoggedIn]);
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      setUser(parsedUserData);
+    }
+  }, [setUser]);
   const logout = () => {
     axios.get('https://fund-raiser-production.up.railway.app/logout').then(res=>{
     if(res.data)
     {if(res.data.Status === "Success"){
-  
+      localStorage.removeItem("userData"); // Remove user data from local storage
+      setUser(null);
       location.reload(true)
       toast.success("Succesfully logged out");
       
@@ -64,17 +57,17 @@ export default function Navbar({links,getLoggedIn  }) {
             <Links hrefs={links} />
 
 
-            {isLoggedIn ? (
+            {user ? (
               <li className="nav-item ">
                 <a className="nav-link active" href="/profile">
-                  Hello {name}!
+                  Hello {user.name}!
                 </a>
               </li>
             ) : (
               <></>
             )}
           </ul>
-          {isLoggedIn ? (
+          {user ? (
             links[links.length - 1].button === true ? (
             <button
               className="btn btn-primary shadow rounded-pill"
