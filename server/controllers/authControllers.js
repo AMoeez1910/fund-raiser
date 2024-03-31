@@ -289,6 +289,24 @@ const NewPassword = (req, res) => {
     })
 }
 
+const updateFundraiseStatus = async () => {
+    try {
+      await connection.query('UPDATE drives SET active = false WHERE endDate > CURDATE()', (err, result) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+  
+      await connection.query('UPDATE fundraise SET active = 0 WHERE goalAmount <= currentAmount', (err, result) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 const createCampaign = async (req, res) => {
     console.log('Received data:', req.body);
     const receivedData = req.body;
