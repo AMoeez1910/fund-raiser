@@ -46,7 +46,7 @@ const verifyMail = async (req, res) => {
     try {
         const { id, expirationTimestamp } = req.params;
         const currentTimestamp = Math.floor(new Date().getTime() / 1000);
-        const expirationTime = 20; // 60 seconds
+        const expirationTime = 3000; // 60 seconds
         connection.query('SELECT verified FROM user WHERE id =?', [id], (errors, resu) => {
             if (errors) {
                 throw errors;
