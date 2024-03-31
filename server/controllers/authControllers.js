@@ -187,8 +187,9 @@ const logsout= (req,res) => {
 }
 const getProfile = (req,res,next)=>{
     const token =req.cookies.token
-    console.log("this is jwt "+req.cookies)
-    if (token) {
+    console.log(req.cookies)
+    console.log(req.cookies.token)
+    if (req.cookies) {
         jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
             if(err){
                 return res.json({Message:"Authentication Error"})
