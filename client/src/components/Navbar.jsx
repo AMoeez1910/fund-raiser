@@ -11,7 +11,7 @@ export default function Navbar({links,getLoggedIn  }) {
   const navigate = useNavigate();
   const {user} = useContext(UserContext)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name,setName] = useState(user.name)
+  const [name,setName] = useState(user?.name)
   //logic for sign in
   axios.defaults.withCredentials=true
   console.log(isLoggedIn)
