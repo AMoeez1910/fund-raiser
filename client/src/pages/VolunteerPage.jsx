@@ -128,14 +128,22 @@ const VolunteerPage = () => {
                           </span>
                         </div>
                         <div className="mb-2">
-                          <button
+                          {active? (<button
                             className="btn btn-primary shadow w-100"
                             type="submit"
                             onClick={handleVolunteer}
                           >
                             Volunteer Now
+                          </button>):
+                         ( <button
+                            className="btn btn-primary shadow w-100"
+                            type="submit"
+                            onClick={handleVolunteer}
+                            disabled
+                          >
+                            Volunteer Ended
                           </button>
-
+                          )}
                         </div>
                       </div>
                     </div>
