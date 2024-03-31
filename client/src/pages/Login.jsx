@@ -22,6 +22,7 @@ export default function Login() {
       if (data.error) {
         toast.error(data.error);
       } else {
+        localStorage.setItem('userData', JSON.stringify(data));
         setData({});
         toast.success("Welcome Back");
         navigate("/");
