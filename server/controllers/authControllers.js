@@ -165,6 +165,7 @@ const loginUser = async (req,res)=>{
             
             res.cookie('token', token, cookiesOptions);
             res.json({ success: 'Successfully Login' });
+            res.redirect('/')
         }
     })
 //    if (match){
