@@ -16,21 +16,21 @@ const CreateVolunteer = () => {
   axios.defaults.withCredentials=true
   axios.defaults.withCredentials = true;
 
-  useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
-    .then(res => {
-      console.log(res.data)
-      if(res.data)
-    {if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-        setID(res.data.id)
-        getLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }}
-    })
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   axios.get(`https://fund-raiser-production.up.railway.app/profile`)
+  //   .then(res => {
+  //     console.log(res.data)
+  //     if(res.data)
+  //   {if(res.data.Status === "Success"){
+  //       setIsLoggedIn(true)
+  //       setID(res.data.id)
+  //       getLoggedIn(true)
+  //     }
+  //     else{
+  //       setIsLoggedIn(false)
+  //     }}
+  //   })
+  // }, [isLoggedIn]);
   
 
   const handleNext = (...keyValuePairs) => {
