@@ -15,7 +15,20 @@ export default function Navbar({links,getLoggedIn  }) {
   //logic for sign in
   axios.defaults.withCredentials=true
   console.log(isLoggedIn)
- 
+  useEffect(() => {
+    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
+    .then(res => {
+      console.log(res.data)
+      if(res.data)
+        console.log(res.data)
+    {if(res.data.Status === "Success"){
+        setName(res.data.name)
+      }
+      else{
+        setIsLoggedIn(false)
+      }}
+    })
+  }, [isLoggedIn]);
   const logout = () => {
     axios.get('https://fund-raiser-production.up.railway.app/logout').then(res=>{
     if(res.data)
