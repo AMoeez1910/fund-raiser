@@ -17,8 +17,10 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:false}))
 app.use('/',require('./routes/authRoutes'))
 app.use("/donate",stripe)
-app.listen(8000,() => {
-console.log("Server is running on port 8000")
+const port = process.env.PORT || 3000;
+
+app.listen(port, "0.0.0.0",() => {
+console.log("Server is running on port 3000")
 connection.connect(function(err){
     if(err) throw err;
     console.log('Database Connected')

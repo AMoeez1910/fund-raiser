@@ -32,7 +32,7 @@ const sendVerifyEmail = async (name, email, id) => {
             from: 'needaspeed639@gmail.com',
             to: email,
             subject: 'Email Verification',
-            html: `<p>Hii ${name} Please click the link below</p> <a href="http://localhost:5173/verify/${id}/${expirationTimestamp}">Verify</a>`,
+            html: `<p>Hii ${name} Please click the link below</p> <a href="https://faryaad.netlify.app/verify/${id}/${expirationTimestamp}">Verify</a>`,
         };
 
         const data = await transporter.sendMail(mailOptions);
@@ -157,10 +157,13 @@ const loginUser = async (req,res)=>{
                 //cookie token
             const token = jwt.sign({users: { FullName: firstName, id: user_id,EmailAddress:email }},process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRES})
             const cookiesOptions = {
-                expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES *24*60*60*1000),
-                httpOnly:true
-            }
-            res.cookie('token', token)
+                expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+                sameSite: 'None',  // Set SameSite attribute to 'None' for cross-origin requests
+                secure: true,      // Set secure to true when served over HTTPS
+            };
+            
+            res.cookie('token', token, cookiesOptions);
             res.json({ success: 'Successfully Login' });
         }
     })
@@ -179,11 +182,12 @@ const loginUser = async (req,res)=>{
 }
 //
 const logsout= (req,res) => {
-    res.clearCookie('token')
+    res.clearCookie('token', { sameSite: 'None', secure: true });
     return res.json({Status:"Success"})
 }
 const getProfile = (req,res,next)=>{
     const token =req.cookies.token
+    console.log("this is jwt "+req.cookies)
     if (token) {
         jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
             if(err){
@@ -216,7 +220,7 @@ const PasswordReset = (req, res) => {
     }})
 }
 const emailNewPass = async (id,token,email) =>{
-    url = `http://localhost:5173/ForgotPassword/${id}/${token}`
+    url = `https://faryaad.netlify.app/ForgotPassword/${id}/${token}`
             try {
                 const transporter = nodemailer.createTransport({
                     host: 'smtp.gmail.com',

@@ -15,7 +15,7 @@ import Profile from './pages/Profile'
 import axios from 'axios'
 import { UserContextProvider } from '../context/userContext'
 import Donate from './pages/Donate'
-axios.defaults.baseURL = `https://fund-raiser-production.up.railway.app`
+axios.defaults.baseURL =`https://fund-raiser-production.up.railway.app`;
 axios.defaults.withCredentials = true;
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
