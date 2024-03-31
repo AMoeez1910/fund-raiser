@@ -12,9 +12,12 @@ import { useEffect,useState } from 'react';
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(()=>{
-    console.log(isLoggedIn+' extracting')
-  })
+  useEffect(() => {
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
   return (
     <>
       <Navbar
