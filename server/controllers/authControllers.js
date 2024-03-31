@@ -547,7 +547,7 @@ const getDetails = (req, res) => {
 };
 
 
-module.exports = { test, registerUser, loginUser, getProfile, verifyMail, PasswordReset, NewPassword, createCampaign, stripeIntegration,logsout, fetchFundraise,filterCards,donatePage,PaymentDetails, createDrive, fetchDrive,drivePage, enrollVolunteer,filterdriveCards,getDetails}
+module.exports = { test, registerUser, loginUser, getProfile, verifyMail, PasswordReset, NewPassword, createCampaign, stripeIntegration,logsout, fetchFundraise,filterCards,donatePage,PaymentDetails, createDrive, fetchDrive,drivePage, updateFundraiseStatus,enrollVolunteer,filterdriveCards,getDetails}
 
 
 
