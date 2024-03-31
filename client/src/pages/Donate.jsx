@@ -41,18 +41,13 @@ export default function Donate() {
     fetchData();
   }, [fid]);
   useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app//profile`)
-    .then(res => {
-      if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-        setName(res.data.name)
-        setID(res.data.id)
-      }
-      else{
-        setIsLoggedIn(false)
-      }
-    })
-  }, [isLoggedIn]);
+    const userData = localStorage.getItem("userData");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      setIsLoggedIn(true);
+      setID(parsedUserData.id)
+    }
+  }, [setIsLoggedIn]);
     const handlePayment =()=>{
       if(isLoggedIn){
         axios.post("/donate/create-checkout-session",

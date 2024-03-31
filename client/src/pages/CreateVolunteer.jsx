@@ -14,21 +14,24 @@ const CreateVolunteer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   axios.defaults.withCredentials=true
-  useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
-    .then(res => {
-      if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }
-    }).catch(error => {
-      toast.error("Login Please"); 
-      // Redirect to login page
-      navigate('/login'); // Adjust the route as per your application setup
-    });
-}, [isLoggedIn]);
+  axios.defaults.withCredentials = true;
+
+  // useEffect(() => {
+  //   axios.get(`https://fund-raiser-production.up.railway.app/profile`)
+  //   .then(res => {
+  //     console.log(res.data)
+  //     if(res.data)
+  //   {if(res.data.Status === "Success"){
+  //       setIsLoggedIn(true)
+  //       setID(res.data.id)
+  //       getLoggedIn(true)
+  //     }
+  //     else{
+  //       setIsLoggedIn(false)
+  //     }}
+  //   })
+  // }, [isLoggedIn]);
+  
 
   const handleNext = (...keyValuePairs) => {
     setData((prevData) => ({

@@ -17,8 +17,8 @@ import { UserContextProvider } from '../context/userContext'
 import Donate from './pages/Donate'
 axios.defaults.baseURL = `https://fund-raiser-production.up.railway.app`
 axios.defaults.withCredentials = true;
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.js";
+import "../../client/src/index.css";
+import "../../client/src/bootstrap.js";
 import CheckoutSuccess from './pages/CheckoutSuccess'
 
 // connect to local host

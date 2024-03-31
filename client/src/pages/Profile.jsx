@@ -43,7 +43,7 @@ export default function Profile() {
   }, [id]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/profile').then((res) => {
+    axios.get('https://fund-raiser-production.up.railway.app/profile').then((res) => {
       if (res.data.Status === 'Success') {
         setIsLoggedIn(true);
         setName(res.data.name);
