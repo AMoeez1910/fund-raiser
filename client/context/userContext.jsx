@@ -5,12 +5,12 @@ export function UserContextProvider({children}){
     const [user,setUser] = useState(null);
     // if user or not
     useEffect(()=>{
-    if(!user){
-        axios.get('https://fund-raiser-production.up.railway.app/profile')
-        .then(res => {
-          if(res.data)
-            setUser(res.data)
-          })
+    // if(!user){
+    //     axios.get('https://fund-raiser-production.up.railway.app/profile')
+    //     .then(res => {
+    //       if(res.data)
+    //         setUser(res.data)
+    //       })
 }
     },[user])
     return (
