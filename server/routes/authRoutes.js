@@ -41,5 +41,5 @@ router.post('/drive', createDrive)
 router.get('/drive/did/:did', drivePage)
 router.post('/drive/volunteer', enrollVolunteer)
 router.get('/getUserInfo/:id', getDetails)
-
+router.patch('/',updateFundraiseStatus)
 module.exports = router
