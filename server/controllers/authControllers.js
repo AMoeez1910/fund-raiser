@@ -197,6 +197,7 @@ const getProfile = (req,res,next)=>{
                 req.name=user.users.FullName
                 req.id=user.users.id
                 req.email=user.users.EmailAddress
+                next()
             }
         })
     } 
