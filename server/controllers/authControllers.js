@@ -288,7 +288,7 @@ const createCampaign = async (req, res) => {
     const receivedData = req.body;
     // Process the received data as needed
     res.json({ message: 'Data received successfully' });
-    connection.query('INSERT INTO fundraise SET ?;', { title: receivedData.title, description: receivedData.description,goalAmount: receivedData.goal, imgUrl: receivedData.imgUrl, type: receivedData.type, createdBy:receivedData.id},(error,re)=>{
+    connection.query('INSERT INTO fundraise SET ?;', { title: receivedData.title, description: receivedData.description,goalAmount: receivedData.goal, imgUrl: receivedData.imgUrl, type: receivedData.type,active:true, createdBy:receivedData.id},(error,re)=>{
 
         if(error) throw error;
         console.log(re)
@@ -382,7 +382,7 @@ const createDrive = async (req, res) => {
     const receivedData = req.body;
     // Process the received data as needed
     res.json({ message: 'Data received successfully' });
-    connection.query('INSERT INTO drive SET ?;', { title: receivedData.title, description: receivedData.description, location: receivedData.location,  imgUrl: receivedData.imgUrl, endDate: receivedData.endDate,createdBy:receivedData.id, type: receivedData.type},(error,re)=>{
+    connection.query('INSERT INTO drive SET ?;', { title: receivedData.title, description: receivedData.description, location: receivedData.location,  imgUrl: receivedData.imgUrl,startDate: new Date(), endDate: receivedData.endDate,createdBy:receivedData.id,active:true, type: receivedData.type},(error,re)=>{
         if(error) throw error;
         console.log(re)
     });
