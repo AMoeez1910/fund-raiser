@@ -291,7 +291,7 @@ const NewPassword = (req, res) => {
 
 const updateFundraiseStatus = async () => {
     try {
-      await connection.query('UPDATE drives SET active = false WHERE CURDATE()>endDate', (err, result) => {
+      await connection.query('update drive set active = 0 where curDate() > endDate;', (err, result) => {
         if (err) {
           console.error(err);
         }
