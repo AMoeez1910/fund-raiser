@@ -13,21 +13,21 @@ const FundRaiser = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   axios.defaults.withCredentials=true
-  useEffect(() => {
-    axios.get(`https://fund-raiser-production.up.railway.app/profile`)
-    .then(res => {
+  // useEffect(() => {
+  //   axios.get(`https://fund-raiser-production.up.railway.app/profile`)
+  //   .then(res => {
       
-      if(res.data)
-    {if(res.data.Status === "Success"){
-        setIsLoggedIn(true)
-        setID(res.data.id)
-        getLoggedIn(true)
-      }
-      else{
-        setIsLoggedIn(false)
-      }}
-    })
-  }, [isLoggedIn]);
+  //     if(res.data)
+  //   {if(res.data.Status === "Success"){
+  //       setIsLoggedIn(true)
+  //       setID(res.data.id)
+  //       getLoggedIn(true)
+  //     }
+  //     else{
+  //       setIsLoggedIn(false)
+  //     }}
+  //   })
+  // }, [isLoggedIn]);
   const handleNext = (...keyValuePairs) => {
     setData((prevData) => ({
       ...prevData,
